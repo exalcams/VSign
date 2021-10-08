@@ -1,0 +1,58 @@
+
+<div class="navbar-top" style="background-color: #ffffff !important;" [ngClass]="fuseConfig.layout.navbar.primaryBackground" fxLayoutAlign="center center">
+    <div class="buttons">
+
+        <div mat-icon-button class="toggle-sidebar-folded" style="width: 100%;" (click)="toggleSidebarFolded()" fxHide.lt-lg>
+            <img class="menuimg" src="assets/images/Group 8232.png" >
+            <!-- <img src="assets/images/foldedmenu.png"> -->
+        </div>
+
+        <div mat-icon-button class="toggle-sidebar-opened" (click)="toggleSidebarOpened()" fxHide.gt-md>
+            <img class="menuimg1" src="assets/images/V.svg">
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="navbar-scroll-container pt-16" fxLayout="row" fusePerfectScrollbar
+    [fusePerfectScrollbarOptions]="{suppressScrollX: true}"
+    style="background-color: #ffffff !important;border: none !important;">
+    <div fxFlex="5"></div>
+    <div class="navbar-content">
+        <fuse-navigation layout="vertical"></fuse-navigation>
+    </div>
+    <div fxFlex="5"></div>
+</div>
+<div class="navbar-down" [ngClass]="fuseConfig.layout.navbar.secondaryBackground"
+    style="background-color: #ffffff !important;">
+    <div fxLayout fxLayoutAlign="start" fxlayout="row" class="mx-8" style="margin-bottom: 15px;padding-left: 10px;">
+        <div fxFlex="8"></div>
+        <div fxFlex fxLayoutAlign="start" fxFlex>
+            <img style="width: 30px;" src="assets/images/face.png">
+            <div fxlayout="row" class="buttons" style="cursor: pointer;color: #394256;margin-top: 5px;">
+                <div  class="mx-12 username" fxHide.lt-lg >
+                    {{CurrentLoggedInUser }} &nbsp;
+                    <span  ><img src="assets/images/Ellipse 12.svg"></span>
+                    
+                </div>
+                
+            </div>
+            
+            
+        </div>
+    </div>
+    <!-- <mat-divider class="borderTop my-8"></mat-divider> -->
+    <div fxLayout fxLayoutAlign="start" class="mx-8" style="margin-bottom: 40px;padding-left: 15px;">
+        <div fxFlex="8"></div>
+        <div fxFlex fxLayoutAlign="start">
+            <img src="assets/images/icons.svg" (click)="logOutClick()" class="powerClass">
+            <div class="buttons" style="cursor: pointer;color: #394256;margin-top: 5px;margin-left: 10px;">
+                <div (click)="logOutClick()" class="mx-12 username" fxHide.lt-lg >
+                    Logout
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

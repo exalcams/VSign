@@ -1,0 +1,28 @@
+.sqrbg::placeholder{
+    text-align: center;
+  
+  }
+  .sqrbg{
+    border: none;
+    border-radius: 4px;
+    background-color: #a5cffd;
+    color: #0e82fb;
+    text-align: center;
+    // margin: 13px 0 0 0px;
+    width: 30px;
+    height: 20px;
+  }
+  .txt_prdtname {
+    // margin-left: 10px;
+    color: #4784f7;
+    /* margin-top: -26px; */
+  }
+  .class1 {
+    height: 160px !important;
+    overflow: auto;
+    /* background-color: red; */
+  }
+  .creat1{
+    cursor: pointer;
+    width: 75%;
+  }

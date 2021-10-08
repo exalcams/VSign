@@ -1,0 +1,105 @@
+<div class="popupform" fxLayout="column" fxFlex="100">
+  <mat-toolbar style="background-color: black;">
+      <span style="color: white;margin: auto;">Sign Document</span>
+      <button style="background-color: white;" mat-icon-button (click)="dialogRefclose()" aria-label="Close dialog">
+          <mat-icon  svgIcon="closeIcon"></mat-icon>
+        </button>
+  </mat-toolbar>
+  
+  
+  <div [formGroup]="signpopform"   style="margin-left: 3%;margin-right: 3%;width: 100% ;height: 100%;">
+      <mat-radio-group aria-label="Select an option" formControlName="position" fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: 3%;margin-left: 3%;margin-right: 3%;margin-bottom: 3%;">
+          <mat-radio-button value="Page" class="txt_onpage">On Page</mat-radio-button>
+          <mat-radio-button value="Tag" class="txt_ontag">On Tag</mat-radio-button>
+          <mat-radio-button value="Cursor" [disabled]="true" class="txt_oncursor">On Cursor</mat-radio-button>
+      </mat-radio-group>
+  
+       <div style="margin-top: 5%;margin-left: 6%;margin-bottom: 7%;margin-right: 6%;" *ngIf="hideTagField" fxLayout="row" fxLayoutAlign="space-between center" class="mainselect1">
+         //commented already
+          <!-- <mat-select [(value)]="selected1" class="dropdown_second">
+              <mat-option>None</mat-option>
+              <mat-option value="option1">Token</mat-option>
+              <mat-option value="option2">Page(custom)</mat-option>
+          </mat-select> -->
+          <mat-form-field class="dropdown_second" >
+              <mat-label>Tag Name</mat-label>
+              <input matInput placeholder="Tag" formControlName="Tagname">
+            </mat-form-field>
+
+
+      </div> 
+      <mat-radio-group  aria-label="Select an option" *ngIf="pageSelection" formControlName="selectedoption">
+          <div fxLayout="row" fxLayoutAlign="space-around center">
+              <mat-radio-button value="first" class="txt_first">First Page</mat-radio-button>
+              <mat-radio-button value="last" class="txt_last">Last Page</mat-radio-button>
+              <mat-radio-button value="all" class="txt_allpages">All pages</mat-radio-button>
+          </div>
+          <div fxLayout="row" style="margin-left: 7%;margin-top: 3%;">
+              <mat-radio-button value="custom" style="font-weight: 500;">custom</mat-radio-button>
+              <div fxLayout="column" fxFlex="35">
+                  <div fxLayout="row" fxLayoutAlign="start center" class="searchbar1">
+                      <input class="inputfield"  formControlName="inputfromcustom">
+                  </div>
+              </div>
+          </div>
+  
+      </mat-radio-group>
+      <div style="margin-left: 3%;border-top: solid 2px #c3c3c3;margin-right: 2%;margin-top: 3%;"></div>
+  <mat-radio-group formControlName="optedEmailType">
+    <mat-radio-button value="init" class="txt_signalldoc">Initiated</mat-radio-button>
+<br>
+
+   <mat-radio-button value="allusers"  class="txt_signalldoc">All users</mat-radio-button>
+<br>
+<mat-radio-button value="custom"  class="txt_signalldoc">Custom</mat-radio-button>
+<br>
+  </mat-radio-group>    
+<br>
+<div fxLayout="row" fxLayoutAlign="space-between center" class="mainselect">
+                                
+                                
+  <div style="margin-left: 12%;margin-top:5%;"></div>
+<mat-select [formControl]="multiemail"  multiple (selectionChange)="userChange()">
+  <mat-option *ngFor="let item of levelusers"  [value]="item">{{item.UserName}}({{item.Email}})</mat-option>
+</mat-select>
+</div>
+  <!-- <section class="example-section">
+    <mat-checkbox class="example-margin" *ngFor="let item of levelusers" >{{item.UserName}} ({{item.RoleName!='User'?item.Email:item.DisplayName}})
+
+    </mat-checkbox>
+   
+  </section> -->
+
+
+<!-- 
+   <section class="example-section">
+       <span class="example-list-section">
+         <mat-checkbox class="example-margin"
+                       [checked]="allComplete"
+                       [color]="task.color"
+                       [indeterminate]="someComplete()"
+                       (change)="setAll($event.checked)">
+           {{task.name}}
+         </mat-checkbox>
+       </span>
+       <span class="example-list-section">
+         <ul>
+           <li *ngFor="let subtask of task.subtasks">
+             <mat-checkbox [(ngModel)]="subtask.completed"
+                           [color]="subtask.color"
+                           (ngModelChange)="updateAllComplete()">
+               {{subtask.name}}
+             </mat-checkbox>
+           </li>
+         </ul>
+       </span>
+     </section> -->
+      <div style="margin-top: 12%;"></div>
+        <div  fxLayoutAlign="center center">
+        <div class="box2" style="cursor: pointer;" (click)="signdocument()" fxLayout="row" fxLayoutAlign="start center">
+            <img src="../../assets/image/vsign/pen-alt.svg" class="doc1">
+            <p class="doc">Sign Document</p>
+        </div>
+    </div>
+    </div>
+</div>

@@ -1,0 +1,356 @@
+<div fxLayout="column" style="width: 100%;background-color: #ffffff">
+    <mat-toolbar style="background-color: #ffffff;border: none !important;">
+
+        <div fxFlex fxFill fxLayout="row" fxLayoutAlign="start center">
+            <div class=" my-8" fxFlex="1 0 auto" fxLayout="column" fxLayoutAlign="start start"
+                style="margin-top: 20px !important;">
+                <!-- <span class="digisign">Digital Signature</span>  -->
+                <img style="margin-left: 10px;" src="assets/images/Group 8208.svg">
+                <span class="doc-center">Document Search</span>
+            </div>
+        </div>
+
+    </mat-toolbar>
+
+    <div fxLayout="row" style="margin-top: 15px;" fxLayoutAlign="space-between center">
+        <!-- <div fxFlex="70">
+        <button mat-flat-button class="searchbar" [matMenuTriggerFor]="menu" #t="matMenuTrigger">
+            <span class="outer">
+                <img class="search" [style.transform]="t.menuOpen? 'scale(1.3)' : 'scale(1)' "
+                    src="assets/images/search.svg"> </span>
+            <span class="searchtxt">Search</span>
+
+            <mat-icon [style.display]="t.menuOpen?'block':'none'" class="droparrow">east</mat-icon>
+            <div [style.display]="t.menuOpen?'none':'block'">
+                <span class="searchtxt All_cls" style="float: right;" fxLayout="row">All<mat-icon
+                        class="droparrow1">arrow_drop_down</mat-icon></span>
+            </div>
+
+
+        </button>
+        <mat-menu #menu="matMenu" class="menu">
+            <button class="menubtn" mat-menu-item>
+                Date
+            </button>
+            <button class="menubtn" mat-menu-item>
+                Title
+            </button>
+        </mat-menu>
+    </div> -->
+        <div fxFlex="50" fxLayoutAlign="space-between center"  (keydown.enter)="search()" fxLayout="row" class="searchbar_txtfield"
+            [formGroup]="datesFormGroup">
+
+            <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                <div style="margin-left: 10px;">
+                    <img class="search" src="assets/images/search.svg">
+                </div>
+
+                <div>
+                    <mat-form-field appearance="none" style="width: 300px;">
+                        <input class="searchtxt" [placeholder]="newPlaceHolder" type="text" [matAutocomplete]="picker"
+                            formControlName="lists" matInput>
+                        <mat-autocomplete [panelWidth]="380" autoActiveFirstOption #picker="matAutocomplete">
+                            <mat-option class="mat_options" *ngFor="let lists of filteredOption | async;"
+                                [value]="lists">
+                                {{lists}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div>
+                <mat-icon (click)="search()" *ngIf="!menushow" class="droparrow">east</mat-icon>
+                <button *ngIf="menushow" [matMenuTriggerFor]="menu" class="btn_searchbar" fxLayout="row"
+                    fxLayoutAlign="center center">
+                    <div class="btn_font">All</div>
+                    <mat-icon class="drp_dwn_icon">arrow_drop_down</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu" [overlapTrigger]="false">
+                    <button (click)="title()" class="btn_font" mat-menu-item>Title</button>
+                    <button (click)="author()" class="btn_font" mat-menu-item>Author</button>
+                </mat-menu>
+            </div>
+
+        </div>
+        <div fxFlex="35" class="div_box">
+            <div fxLayout="row">
+                <div fxFlex="45" fxLayoutAlign="start center">
+
+                    <img fxFlex="20" class="Img_group" src="assets/images/Group3.svg">
+                    <p fxFlex="80" class="Main_cls">Total Entries</p>
+                    <div fxFlex="10" class="Number_cls" style=" margin-right: 25px;   margin-left: -4px;">{{entryindex}}</div>
+                </div>
+                <div fxLayoutAlign="center center" class="Line_cls"></div>
+                <div fxFlex="55" fxLayoutAlign="start center">
+                    <img fxFlex="20" class="Img_group" style="margin-left: 14px;" src="assets/images/Group2.svg">
+                    <div fxFlex="80" class="Main_cls1">Document List</div>
+                    <div fxFlex="10" class="Number_cls">{{this.length}}</div>
+                </div>
+                <img class="blueflow" src="../../assets/images/Group1.svg">
+            </div>
+        </div>
+    </div>
+    <div class="Divder_cls">
+
+    </div>
+    <div fxLayout="row">
+        <div fxFlex="100" fxLayout="row">
+            <div fxFlex="5"></div>
+
+            <div fxFlex="35" fxLayout="column" style="padding: 20px;">
+                <label style="color: #202020 !important;font-weight: bold !important;">How to Search</label>
+                <p style="font-family: Poppins;">If you are not familiar with the search features, or want to learn
+                    More, see one fo the following resources.</p>
+                <div fxLayout="row">
+                    <div fxFlex="80" fxLayout="column">
+                        <video fxFlex height="200px" controls>
+                            <source src="assets/video/movie.mp4" type="video/mp4">
+                        </video>
+
+                        <p align=end style="color: #0e82fb;font-weight: 600;margin-top: 20px;">Documentation<span><img
+                                    style="margin-left: 10px;margin-top: 8px;" width="15px"
+                                    src="../../assets/images/Layer 2.svg"></span></p>
+                    </div>
+                    <div fxFlex="20"></div>
+
+                </div>
+                <label style="color: #202020 !important;font-weight: bold !important;">Search History</label>
+                <p (click)="opensearchhistory()" style="color: #0e82fb;font-weight: 600;cursor: pointer;">History List<span><img
+                            style="margin-left: 10px;margin-top: 5px;" width="15px"
+                            src="../../assets/images/Layer 2.svg"></span></p>
+            </div>
+            <div class="Line_cls1" fxLayoutAlign="center center"></div>
+            <div fxFlex="65" fxLayout="column" style="padding: 20px 20px 20px 35px;">
+                <label style="color: #202020 !important;font-weight: bold !important;">How to Search</label>
+                <div fxLayout="row">
+                    <div fxFlex="40" fxLayout="column">
+                        <p style="font-family: Poppins;">{{entryindex}} Entries</p>
+                        <p class="Para_cls">INDEXED</p>
+                    </div>
+                    <div fxFlex="30" fxLayout="column">
+                        <p style="font-family: Poppins;">{{firstentry}}</p>
+                        <p class="Para_cls">EARLIEST ENTRY</p>
+                    </div>
+                    <div fxFlex="30" fxLayout="column">
+                        <p style="font-family: Poppins;">{{latesttime}}</p>
+                        <p class="Para_cls">LATEST ENTRY</p>
+                    </div>
+                </div>
+
+                <!-- <div class="CREate" mat-flat-button fxLayout="row" fxLayoutAlign="center center"
+                    style="margin-top: 20px;">
+                    <span class="span">Data Summary </span>
+                    <img class="blueflow1" src="../../assets/images/flowerblue.svg">
+            </div> -->
+            <label style="color: #202020 !important;font-weight: bold !important;">Data Summary</label>
+
+                <!-- <div *ngIf="datasummary" fxFlexOffset="18px" fxLayout="column"  fxLayoutAlign="space-evenly start">
+
+                    <div  fxLayout="row"  fxLayoutAlign="space-evenly center"  >
+                        <div class="bold_cls">Title</div>
+                        <div>-</div>
+                        <div  style="font-family: Poppins;">{{resultarray.title}}</div>
+                    </div>
+                    
+                    <div  fxLayout="row"   fxLayoutAlign="space-evenly center">
+                        <div   class="bold_cls">Author</div>
+                        <div >-</div>
+                        <div   style="font-family: Poppins;">{{resultarray.author}}</div>
+                    </div>
+                    
+                    <div  fxLayout="row"   fxLayoutAlign="space-evenly center">
+                        <div   class="bold_cls" >Company</div>
+                        <div  >-</div>
+                        <div  style="font-family: Poppins;">{{resultarray.company}}</div>
+                    </div>
+
+                    <div  fxLayout="row" fxLayoutAlign="space-evenly center">
+                        <div class="bold_cls" >Document Id</div>
+                        <div >-</div>
+                        <div  style="font-family: Poppins;">{{resultarray.docId}}</div>
+                    </div>
+
+
+
+                    <div  fxLayout="row"  fxLayoutAlign="space-evenly center">
+                        <div  class="bold_cls" >Status</div>
+                        <div >-</div>
+                        <div  style="font-family: Poppins;">{{resultarray.fulfilment}}</div>
+                    </div>
+
+                    <div  fxLayout="row"   fxLayoutAlign="space-evenly center">
+                        <div  class="bold_cls" >Created On</div>
+                        <div >-</div>
+                        <div  style="font-family: Poppins;">{{resultarray.createdOn | date}}</div>
+                    </div>
+
+                    <div  fxLayout="row"   fxLayoutAlign="space-evenly center">
+                        <div  class="bold_cls" >Completed by</div>
+                        <div >-</div>
+                        <div  style="font-family: Poppins;">{{resultarray.completeby | date}}</div>
+                    </div>
+
+                    <div  fxLayout="row"   fxLayoutAlign="space-evenly center">
+                        <div  class="bold_cls" >Sign Status</div>
+                        <div >-</div>
+                        <div  style="font-family: Poppins;">{{resultarray.signStatus}}</div>
+                    </div>
+                                  </div> -->
+
+                <div  *ngIf="datasummary"  fxFlexOffset="18px" class="tablescroll">
+
+                    <table mat-table [dataSource]="employeesDataSource">
+
+                        <ng-container matColumnDef="title">
+                            <th mat-header-cell *matHeaderCellDef><span class="thtitle"> Title </span></th>
+                            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="author">
+                            <th mat-header-cell *matHeaderCellDef> <span class="thauthor"> Author </span></th>
+                            <td mat-cell *matCellDef="let element"> {{element.author}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="date">
+                            <th mat-header-cell *matHeaderCellDef><span class="thdate">Date</span> </th>
+                            <td mat-cell *matCellDef="let element"> {{element.createdOn | date}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="fulfilment">
+                            <th mat-header-cell *matHeaderCellDef> <span class="thful">Fulfilment</span> </th>
+                            <td mat-cell *matCellDef="let element">
+                                <ng-container
+                                    *ngIf="(element.fulfilment == 'Created')||(element.fulfilment == 'Draft')">
+
+                                    <mat-progress-bar class="progressone" mode="determinate" value="25">
+                                    </mat-progress-bar>
+                                    <span class="hider">
+                                        <span class="span1">gananathanks</span>
+                                        &nbsp;&nbsp;
+                                        {{element.fulfilment?'Created':'Draft'}}</span>
+                                </ng-container>
+                                <ng-container *ngIf="element.fulfilment == 'Released'">
+                                    <mat-progress-bar class="progresstwo" mode="determinate" value="50">
+                                    </mat-progress-bar>
+                                    <span class="hider">
+                                        <span class="span2">gananathanks</span>
+                                        &nbsp;&nbsp;
+                                        {{element.fulfilment}}</span>
+                                </ng-container>
+                                <ng-container *ngIf="element.fulfilment == 'In Signing'">
+                                    <mat-progress-bar class="progressthree" mode="determinate" value="75">
+                                    </mat-progress-bar>
+                                    <span class="hider">
+                                        <span class="span3">gananathanks</span>
+                                        &nbsp;&nbsp;
+                                        {{element.fulfilment}}</span>
+                                </ng-container>
+                                <!-- <ng-container *ngIf="element.fulfilment == 'Draft'">
+                                                <mat-progress-bar class="progressthree1" style="background-color:#ffffff !important;" mode="determinate" value="1">
+                                                </mat-progress-bar>
+                                                <span class="hider">
+                                                    <span class="span3">gananathanks</span>
+                                                    &nbsp;&nbsp;
+                                                    {{element.fulfilment}}</span>
+                                            </ng-container> -->
+                                <ng-container *ngIf="element.fulfilment == 'Completed'">
+                                    <mat-progress-bar class="progressfour" mode="determinate" value="100">
+                                    </mat-progress-bar>
+                                    <span class="hider">
+                                        <span class="span4">gananathanks</span>
+                                        &nbsp;&nbsp;
+                                        {{element.fulfilment}}</span>
+                                </ng-container>
+
+
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="signed">
+                            <th mat-header-cell *matHeaderCellDef> <span class="thsign"> Signed </span></th>
+                            <td mat-cell *matCellDef="let element">{{element.scount}} / {{element.tscount}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="completeby">
+                            <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;"><span
+                                    class="thcomplete">Completed By</span> </th>
+                            <td mat-cell *matCellDef="let element">{{element.completeby | date}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef><span class="thaction">Action</span> </th>
+                            <td mat-cell *matCellDef="let element" style="padding-left: 20px;">
+                                <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                                    <div fxLayout="row" fxFlex="90" fxLayoutAlign="center" fxLayoutGap="10px">
+                                        <div *ngIf="element.docId===selecteddocId?hidespin1:none " style="margin-top:-15% !important;" fxLayoutAlign="center center">
+                                            <mat-spinner diameter="20"></mat-spinner>
+                                        </div>
+                                        <mat-icon style="cursor: pointer;color: #057dfb;
+                                        font-size: 20px;" matTooltip="Send Remainder" *ngIf="element.fulfilment=='Released'?true:element.fulfilment=='In Signing'?true:false" matTooltipPosition='above' class="notify"
+                                        (click)="sendRemainder(element.client,element.company,element.docId,element.fulfilment,element.author,element.createdOn,element.completeby)" >notifications</mat-icon>
+                                        <!-- <img style="cursor: pointer;" matTooltip="Send Remainder" *ngIf="element.fulfilment=='Released'?true:element.fulfilment=='In Signing'?true:false" matTooltipPosition='above' class="notify"
+                                            (click)="sendRemainder(element.client,element.company,element.docId,element.fulfilment,element.author,element.createdOn,element.completeby)" src="assets/images/Notify.svg"> -->
+                                        <!-- <img style="cursor: pointer;" matTooltip="Foreclose"  (click)="onSelect(element)" matTooltipPosition='above' class="close"
+                                            src="assets/images/close.svg"> -->
+                                            <mat-icon style="cursor: pointer;color:  #ff4560;;
+                                            font-size: 20px;"  matTooltip="Foreclose"  (click)="onSelect(element)" matTooltipPosition='above' class="close">delete</mat-icon>
+                                    </div>
+                                    <div fxFlex="10">
+                                        <mat-icon class="more" [matMenuTriggerFor]="moremenu">more_vert</mat-icon>
+                                        <mat-menu #moremenu="matMenu" xPosition="before">
+                                            <button mat-menu-item
+                                                (click)="sign(element.client,element.company,element.docId,element.fulfilment,element.author,element.createdOn,element.completeby)"
+                                                *ngIf="boolNxtsign(element)">
+                                                Sign Doc.
+                                            </button>
+                                            <button mat-menu-item
+                                                (click)="sign(element.client,element.company,element.docId,element.fulfilment,element.author,element.createdOn,element.completeby)"
+                                                *ngIf="((element.signStatus=='nxtsign')&&element.fulfilment!='Completed')?true:false">
+                                                Sign Doc.
+                                            </button>
+                                            <button mat-menu-item
+                                                (click)="view(element.client,element.company,element.docId,element.fulfilment)"
+                                                *ngIf="(element.client==curruser.ClientID)&&(element.fulfilment=='Draft'||element.fulfilment=='Released')?true:false">
+                                                View Doc.
+                                            </button>
+                                            <button mat-menu-item
+                                                (click)="viewDoc(element.client,element.company,element.docId,element.fulfilment,element.author,element.createdOn,element.completeby)"
+                                                *ngIf="(element.signStatus=='signed' || (element.client==curruser.ClientID))&&(element.fulfilment=='In Signing' || element.fulfilment=='Completed')?true:false">
+                                                View Doc.
+                                            </button>
+                                        </mat-menu>
+                                    </div>
+                                </div>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="employeesDisplayColumns; sticky: true"
+                            style="background-color: #f7f9fd;"></tr>
+                        <tr mat-row *matRowDef="let row; columns: employeesDisplayColumns;"></tr>
+                    </table>
+
+                </div>
+
+
+
+            </div>
+        </div>
+        <!-- <div fxFlex="35">fg</div> -->
+        <!-- <div fxFlex="20" style="padding: 20px 20px 20px 35px;margin-left: -60px;"> -->
+        <!-- <ng2-adsense 
+        [adClient]="'ca-pub-7640562161899788'"
+        [adSlot]="2930227358"
+        
+        [width]="310"
+        [height]="110">
+        </ng2-adsense> -->
+        <!-- <asw-google-adsense  [adClient]="'ca-pub-9010581920864857'"
+            [adSlot]="1795662914" [display]="'inline-block'" [width]="50" [height]="10"></asw-google-adsense> -->
+        <!-- <div class="Ads_cls " fxFlex>
+            <p class="preview"></p>
+            <p class="preview1"></p>
+            <p class="preview2"></p>
+            <p class="preview3"></p>
+            <p style="    text-align: center;
+padding-top: 87px;font-family: Poppins; color: #0e82fb;font-weight: 600;">Advertisement
+                From Google Ads</p>
+        </div> -->
+        <!-- </div> -->
+    </div>
+</div>

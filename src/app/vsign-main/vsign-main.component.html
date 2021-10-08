@@ -1,0 +1,88 @@
+<mat-sidenav-container style="background-color:white;">
+  <mat-sidenav mode="side" opened style="background-color: #121214;position: fixed; ">
+      <mat-nav-list style="width: 11vh;">
+
+          <img src="../../assets/image/vsign/menu.png" class="image">
+          <div fxLayout="column" fxLayoutAlign="center center">
+              <p class="primarytools">Primary Tools</p>
+              <p class="line_primary"></p>
+          </div>
+          <div *ngIf="!flag" fxLayout="column" fxLayoutAlign="center center" style="cursor: pointer;"
+              (click)="dashboard()">
+              <img src="../../assets/image/vsign/dashboard.png" style="width: 22px;" class="image1">
+              <a style="color: #aba4a4; font-size:x-small;margin-top: 6px; ">Dashboard</a>
+          </div>
+
+          <div *ngIf="flag" fxLayout="column" fxLayoutAlign="center center" style="cursor: pointer;"
+              class="highlight box1" (click)="dashboard()">
+              <img src="../../assets/image/vsign/dashboard.png" style="width: 22px;opacity: 100%;" class="image1">
+              <a style="color: #aba4a4; font-size:x-small;margin-top: 6px; ">Dashboard</a>
+          </div>
+
+          <div *ngIf="!flagdoc" fxLayout="column" fxLayoutAlign="center center" style="cursor: pointer;"
+              (click)="document()">
+              <img src="../../assets/image/vsign/document.png" style="cursor: pointer;" class="image2">
+              <a style="color: #aba4a4; font-size:x-small;">Document</a>
+          </div>
+          <div *ngIf="flagdoc" fxLayout="column" fxLayoutAlign="center center" style="cursor: pointer;"
+              (click)="document()" class="highlight box1">
+              <img src="../../assets/image/vsign/document.png" style="cursor: pointer;opacity: 100%;" class="image2">
+              <a style="color: #aba4a4; font-size:x-small;">Document</a>
+          </div>
+
+          <div *ngIf="flagsign" fxLayout="column" fxLayoutAlign="center center" style="cursor: pointer;"
+              (click)="signing()" class="highlight box1">
+              <img src="../../assets/image/vsign/in_sign.svg" style="opacity: 100%;" class="image3">
+              <a style="color: #aba4a4; font-size:x-small;">In Signing</a>
+          </div>
+          <div *ngIf="!flagsign" fxLayout="column" fxLayoutAlign="center center" style="cursor: pointer;"
+              (click)="signing()">
+              <img src="../../assets/image/vsign/in_sign.svg" style="opacity: 30%;" class="image3">
+              <a style="color: #aba4a4; font-size:x-small;">In Signing</a>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="center center">
+              <img src="../../assets/image/vsign/repost.png" class="image4">
+              <a style="color: #aba4a4; font-size:x-small;">Reposting</a>
+          </div>
+          <hr style="margin-top: 5px;opacity: 0.6;border: solid 1px #707070;">
+          <div fxLayout="column" fxLayoutAlign="center center">
+              <p class="settingtools">Setting Tools</p>
+              <p class="line_setting"></p>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="center center">
+              <img src="../../assets/image/vsign/settings (2).svg" class="image5" style="color:black;opacity: 0.4;">
+              <a style="color: #aba4a4; font-size:x-small;opacity: 1; ">Setting</a> 
+          </div>
+           
+          <div fxLayout="column" fxLayoutAlign="center center">
+              <img src="../../assets/image/vsign/classification.png" class="image6">
+              <a style="color: #aba4a4; font-size:x-small;">Classification</a>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="center center">
+              <img src="../../assets/image/vsign/signed.png" class="image7">
+              <a style="color: #aba4a4; font-size:x-small;">Signed</a>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="center center">
+              <img src="../../assets/image/vsign/template.png" class="image8">
+              <a style="color: #aba4a4; font-size:x-small;"> Template</a>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="center center">
+              <img src="../../assets/image/vsign/connections.png" class="image9">
+              <a style="color: #aba4a4; font-size:x-small; "> Connectors</a>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="center center">
+              <img src="../../assets/image/vsign/notification.png" class="image10">
+              <a style="color: #aba4a4; font-size:x-small;"> notification</a>
+          </div>
+          <hr style="color: #ffffff;margin-top: 20px;">
+          <div>
+              <div>
+                  <img src="../../assets/image/vsign/power.png" style="float: left;" class="image11"></div>
+              <div style="color: #aba4a4; font-size:x-small;margin-left: 8px;float: left;margin-top: 10px; "> Logout
+              </div>
+          </div>
+
+      </mat-nav-list>
+  </mat-sidenav>
+  <router-outlet></router-outlet>
+</mat-sidenav-container>

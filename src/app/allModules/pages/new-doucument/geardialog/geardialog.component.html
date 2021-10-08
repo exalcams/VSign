@@ -1,0 +1,58 @@
+<div fxLayout="column" fxFlex>
+  <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center" style="background-color: #ffffff;">
+    <span style="color: #202020;font-size: 16px;">Tag Creation</span>
+    <!-- <button style="background-color: white;" mat-icon-button (click)="dialogRefclose()" aria-label="Close dialog"> -->
+    <img (click)="dialogRef.close()" style="cursor: pointer;" src="assets/images/Group 7779.svg">
+    <!-- </button> -->
+  </mat-toolbar>
+  <div class="class1">
+    <div class="example-box " *ngFor="let item of tagusers; index as i " style=" padding-left: 30px;
+      padding-right: 30px;padding-bottom: 15px;">
+
+      <section fxLayout="row" fxLayoutGap="10px ">
+
+        <!-- <img src="assets/images/avatar.svg " class="img_all "> -->
+        <div fxLayout="row " fxFlex="35" fxLayoutAlign="start center ">
+          <div class="txt_prdtname ">{{item.UserName}} {{item.RoleName!='User'?item.Email:item.DisplayName}}
+            ({{item.RoleName}})
+            <img [style.display]="item.RoleName ==='User'?'true':'none'" class="starbadge"
+              src="../../assets/images/starbadge.svg">
+          </div>
+
+
+
+        </div>
+        <div fxFlex="65" fxLayoutAlign="end center ">
+          <div fxLayout="row" fxFlex="90%" fxLayoutAlign="center center ">
+            <p style="font-size: 12px; font-weight: 600;padding-left: 8px;
+        margin-right: 15px;
+        margin-top: 10px;">Page:</p>
+
+            <section class="flaradio" fxLayoutGap="10px" fxLayoutAlign="center">
+              <mat-checkbox style="font-size: 12px !important;">First</mat-checkbox>
+              <mat-checkbox style="font-size: 12px !important;">Last</mat-checkbox>
+              <mat-checkbox style="font-size: 12px !important;">All</mat-checkbox>
+            </section>
+            <p style="font-size: 12px; font-weight: 600;padding-left: 8px;
+        margin-right: 15px;">Custom Page:</p><input style="width: 7%;" class="sqrbg" placeholder="12">
+
+          </div>
+
+
+        </div>
+      </section>
+
+
+    </div>
+  </div>
+  <footer  fxLayout="row" fxLayoutAlign="end center">
+    <div class="before2" fxLayout="row" fxLayoutAlign="center center" (click)="dialogRef.close() ">
+      <img class="creat1" src="../../assets/images/b1.svg">
+      <span style="position: absolute !important; color: white;cursor: pointer;" (click)="dialogRef.close() " >Cancel</span>
+    </div>
+    <div class="before2" fxLayout="row" fxLayoutAlign="center center" (click)="dialogRef.close() ">
+      <img class="creat1" src="../../assets/images/b1.svg">
+      <span style="position: absolute !important; color: white;cursor: pointer;" (click)="dialogRef.close() " >Save</span>
+    </div>
+  </footer>
+</div>

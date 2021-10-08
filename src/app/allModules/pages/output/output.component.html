@@ -1,0 +1,225 @@
+<div fxLayout="column" style="width: 100%;background-color: #ffffff">
+
+  <mat-toolbar style="background-color: #ffffff;border: none !important;">
+
+      <div fxFlex fxFill fxLayout="row" fxLayoutAlign="start center">
+          <div class=" my-8" fxFlex="1 0 auto" fxLayout="column" fxLayoutAlign="start start"
+              style="margin-top: 20px !important;">
+       
+              <img style="margin-left: 10px;" src="assets/images/Group 8208.svg">
+              <span class="doc-center">Signed Documents {{signcompletelength1}}</span>
+              
+           
+          </div>
+         
+      </div>
+
+  </mat-toolbar>
+
+  <div *ngIf="hidespin " style="width: 100%;" fxLayoutAlign="center center">
+      <mat-spinner value="70"></mat-spinner>
+  </div>
+
+  <div *ngIf="!hidespin" fxLayout="column">
+
+
+    
+      <div fxLayout="column" fxFlex="96" fxLayoutGap="20px" class="body" style="padding: 0px 25px;">
+
+          <!-- Second Row-->
+
+          <div fxLayout="row" class="topgap" fxLayoutGap="20px" fxLayoutAlign="space-between center" style="margin-top: 0px;">
+              <div fxFlex="40">
+               
+                  <div [formGroup]="form" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="30px">
+                      
+                      <div fxFlex="25" style="margin-top: -20px !important;">
+                         
+                          <!-- <mat-form-field class="form-field" appearance="outline" style="width: 100%;
+                          font-size: 12px;"> -->
+                              <mat-label class="label1">Selected</mat-label>
+                              <span><label>{{this.selectedvalue}}</label></span>
+                              <!-- <input class="input" matInput  formControlName="fromdate"
+                                   placeholder="Enter From Date" (dateChange)="DateSelected()"> -->
+                             
+                          <!-- </mat-form-field> -->
+                      </div>
+                      
+                      <div fxFlex="20" class="ml-44" fxlayoutAlign="start center" style="margin-top: 20px;">
+                          <button class="CREate" mat-flat-button fxLayout="row" (click)="SearchClicked()" fxLayoutAlign="center center">
+                              <span class="span"> Search  </span>
+                              <img class="blueflow" src="../../assets/images/flowerblue.svg">
+                          </button>
+                          <!-- <button mat-raised-button class="SaveBtn" (click)="SearchClicked()">Search</button> -->
+                      </div>
+
+                  </div>
+              </div>
+
+           
+
+              <div fxFlex="20" fxLayoutAlign="end end" style="margin-top: 20px;">
+                  <div class="created1" (click)="addbutton()">
+
+                      <button class="CREate" mat-flat-button fxLayout="row" fxLayoutAlign="center center">
+                          <span class="span"> Send Mail</span>
+                          <img class="blueflow" src="../../assets/images/flowerblue.svg">
+                      </button>
+
+
+                  </div>
+                  <div class="created" (click)="onClickDownload(i)">
+
+                    <button class="CREate1" mat-flat-button fxLayout="row" fxLayoutAlign="center center">
+                        <span class="span"> Print </span>
+                        <img class="blueflow" src="../../assets/images/flowerblue.svg">
+                    </button>
+
+
+                </div>
+              </div>
+          </div>
+
+          <div class="tablescroll">
+
+              <table mat-table [dataSource]="employeesDataSource">
+                <ng-container matColumnDef="select">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                  [checked]="selection.hasValue() && isAllSelected()"
+                                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    <mat-checkbox (click)="$event.stopPropagation()"
+                                  (change)="$event ? selection.toggle(row) : null"
+                                  [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                  </td>
+                </ng-container>
+                  <ng-container matColumnDef="title">
+                      <th mat-header-cell *matHeaderCellDef><span class="thtitle"> Title </span></th>
+                      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="author">
+                      <th mat-header-cell *matHeaderCellDef> <span class="thauthor"> Author </span></th>
+                      <td mat-cell *matCellDef="let element"> {{element.author}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="date">
+                      <th mat-header-cell *matHeaderCellDef><span class="thdate">Date</span> </th>
+                      <td mat-cell *matCellDef="let element"> {{element.createdOn | date}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="fulfilment">
+                      <th mat-header-cell *matHeaderCellDef> <span class="thful">Fulfilment</span> </th>
+                      <td mat-cell *matCellDef="let element">
+                          <ng-container *ngIf="(element.fulfilment == 'Created')||(element.fulfilment == 'Draft')">
+
+                              <mat-progress-bar class="progressone" mode="determinate" value="25">
+                              </mat-progress-bar>
+                              <span class="hider">
+                                  <span class="span1">gananathanks</span>
+                                  &nbsp;&nbsp;
+                                  {{element.fulfilment?'Created':'Draft'}}</span>
+                          </ng-container>
+                          <ng-container *ngIf="element.fulfilment == 'Released'">
+                              <mat-progress-bar class="progresstwo" mode="determinate" value="50">
+                              </mat-progress-bar>
+                              <span class="hider">
+                                  <span class="span2">gananathanks</span>
+                                  &nbsp;&nbsp;
+                                  {{element.fulfilment}}</span>
+                          </ng-container>
+                          <ng-container *ngIf="element.fulfilment == 'In Signing'">
+                              <mat-progress-bar class="progressthree" mode="determinate" value="75">
+                              </mat-progress-bar>
+                              <span class="hider">
+                                  <span class="span3">gananathanks</span>
+                                  &nbsp;&nbsp;
+                                  {{element.fulfilment}}</span>
+                          </ng-container>
+                     
+                          <ng-container *ngIf="element.fulfilment == 'Completed'">
+                              <mat-progress-bar class="progressfour" mode="determinate" value="100">
+                              </mat-progress-bar>
+                              <span class="hider">
+                                  <span class="span4">gananathanks</span>
+                                  &nbsp;&nbsp;
+                                  {{element.fulfilment}}</span>
+                          </ng-container>
+
+
+                      </td>
+                  </ng-container>
+                  <ng-container matColumnDef="signed">
+                      <th mat-header-cell *matHeaderCellDef> <span class="thsign"> Signed </span></th>
+                      <td mat-cell *matCellDef="let element">{{element.scount}} / {{element.tscount}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="completeby">
+                      <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;"><span
+                              class="thcomplete">Completed On</span> </th>
+                      <td mat-cell *matCellDef="let element">{{element.completeby | date}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="action">
+                      <th mat-header-cell *matHeaderCellDef><span class="thaction">Action</span> </th>
+                      <td mat-cell *matCellDef="let element" style="padding-left: 20px;">
+                          <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                              <div fxLayout="row" fxFlex="90" fxLayoutAlign="center" fxLayoutGap="10px">
+                                  <div *ngIf="element.docId===selecteddocId?hidespin1:none "
+                                      style="margin-top:-15% !important;" fxLayoutAlign="center center">
+                                      <mat-spinner diameter="20"></mat-spinner>
+                                  </div>
+                                  <mat-icon style="cursor: pointer;color: #057dfb;
+                                  font-size: 20px;" matTooltip="Send Remainder"
+                                      *ngIf="element.fulfilment=='Released'?true:element.fulfilment=='In Signing'?true:false"
+                                      matTooltipPosition='above' class="notify"
+                                      (click)="sendRemainder(element.client,element.company,element.docId,element.fulfilment,element.author,element.createdOn,element.completeby)">
+                                      notifications</mat-icon>
+                               
+                                  <mat-icon style="cursor: pointer;color:  #ff4560;;
+                                      font-size: 20px;" matTooltip="Foreclose" (click)="onSelect(element)"
+                                      matTooltipPosition='above' class="close">delete</mat-icon>
+                              </div>
+                              <div fxFlex="10">
+                                  <mat-icon class="more" [matMenuTriggerFor]="moremenu">more_vert</mat-icon>
+                                  <mat-menu #moremenu="matMenu" xPosition="before">
+                                      <button mat-menu-item
+                                          (click)="sign(element.client,element.company,element.docId,element.fulfilment,element.author,element.createdOn,element.completeby)"
+                                          *ngIf="boolNxtsign(element)">
+                                          Sign Doc.
+                                      </button>
+                                      <button mat-menu-item
+                                          (click)="sign(element.client,element.company,element.docId,element.fulfilment,element.author,element.createdOn,element.completeby)"
+                                          *ngIf="((element.signStatus=='nxtsign')&&element.fulfilment!='Completed')?true:false">
+                                          Sign Doc.
+                                      </button>
+                                      <button mat-menu-item
+                                          (click)="view(element.client,element.company,element.docId,element.fulfilment)"
+                                          *ngIf="(element.client==curruser.ClientID)&&(element.fulfilment=='Draft'||element.fulfilment=='Released')?true:false">
+                                          View Doc.
+                                      </button>
+                                      <button mat-menu-item
+                                          (click)="viewDoc(element.client,element.company,element.docId,element.fulfilment,element.author,element.createdOn,element.completeby)"
+                                          *ngIf="(element.signStatus=='signed' || (element.client==curruser.ClientID))&&(element.fulfilment=='In Signing' || element.fulfilment=='Completed')?true:false">
+                                          View Doc.
+                                      </button>
+                                  </mat-menu>
+                              </div>
+                          </div>
+                      </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="employeesDisplayColumns; sticky: true"
+                      style="background-color: #f7f9fd;"></tr>
+                  <tr mat-row *matRowDef="let row; columns: employeesDisplayColumns;" (click)="selectRow(row)"></tr>
+              </table>
+
+          </div>
+
+
+      </div>
+    
+  </div>
+
+</div>

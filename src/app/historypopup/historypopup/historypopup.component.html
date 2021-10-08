@@ -1,0 +1,38 @@
+<div fxLayout="column" style="width: 500px;margin: 10px;">
+  <div fxLayout="row" fxFlex="100" fxLayoutAlign="center center">
+    <div class="search_text" fxFlex="95" fxLayoutAlign="center center">
+        Search History
+    </div>
+    <div  fxFlex="5">
+        <mat-icon class="close_icon" (click)="close()">close</mat-icon>
+    </div>
+</div>
+<div  fxFlexOffset="8px" fxLayoutAlign="space-evenly center" >  
+  <mat-divider style="width: 300px;"></mat-divider>
+</div>
+
+<div  class="tablescroll"  fxFlexOffset="12px">
+  <table mat-table  [dataSource]="employeesDataSource" class="mat-elevation-z8">
+
+    
+    <ng-container matColumnDef="keyword">
+      <th mat-header-cell *matHeaderCellDef> Search </th>
+      <td mat-cell *matCellDef="let element"> {{element.keyword}} </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="searchedin">
+      <th mat-header-cell *matHeaderCellDef> Searched in </th>
+      <td mat-cell *matCellDef="let element"> {{element.searchedin}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="datetime">
+      <th mat-header-cell *matHeaderCellDef> Searched on </th>
+      <td mat-cell *matCellDef="let element"> {{element.datetime | date:'dd/MM/yyyy HH:mm:ss' }} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+</div>

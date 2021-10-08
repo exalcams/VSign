@@ -1,0 +1,323 @@
+<div fxLayout="column" style="width: 100%;background-color: #ffffff">
+  <mat-toolbar style="background-color: #ffffff;border: none !important;">
+
+    <div fxFlex fxFill fxLayout="row" fxLayoutAlign="start center">
+      <div class=" my-8" fxFlex="1 0 auto" fxLayout="column" fxLayoutAlign="start start"
+        style="margin-top: 20px !important;">
+        <!-- <span class="digisign">Digital Signature</span>  -->
+        <img style="margin-left: 10px;" src="assets/images/Group 8208.svg">
+        <span class="doc-center">Repository</span>
+      </div>
+    </div>
+
+  </mat-toolbar>
+  <div fxFlex="100" fxLayout="row">
+    <div fxFlex="2"> </div>
+    <div fxFlex="20" fxLayout="column">
+      <div fxLayout="row" fxLayoutAlign="space-between center" class="bg_cls">
+        <!-- <div fxLayoutAlign="space-beetween center"> -->
+
+        <p style="margin-top: 12px;">Create Main</p>
+        <mat-icon style="cursor: pointer;transform: scale(0.8);" (click)="OpenMainDialog()">add</mat-icon>
+
+        <!-- </div> -->
+      </div>
+
+
+
+      <mat-card class="scrollable3">
+        <div style="padding: 10px;">
+          <button mat-flat-button class="searchbar" [matMenuTriggerFor]="menu" #t="matMenuTrigger">
+            <span class="outer">
+              <img class="search" [style.transform]="t.menuOpen? 'scale(1.3)' : 'scale(1)' "
+                src="assets/images/search.svg"> </span>
+            <span class="searchtxt">Search</span>
+
+            <mat-icon [style.display]="t.menuOpen?'block':'none'" class="droparrow">east</mat-icon>
+            <div [style.display]="t.menuOpen?'none':'block'">
+              <img class="droparrow" style="margin-top: 14px;" src="assets/images/Polygon 4.svg">
+            </div>
+
+
+          </button>
+          <mat-menu #menu="matMenu" class="menu">
+            <button class="menubtn" mat-menu-item>
+              Date
+            </button>
+            <button class="menubtn" mat-menu-item>
+              Title
+            </button>
+          </mat-menu>
+        </div>
+        <div class="Vrt_line"></div>
+
+
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" style="padding: 0px 15px 0px 20px;"
+          class="example-tree">
+          <mat-tree-node style="margin-top: 10px;" *matTreeNodeDef="let node,index as i," matTreeNodeToggle
+            [style.color]="treeControl.isExpanded(node) ? '#0e82fb' : '#083a6f'"
+            [ngClass]="treeControl.isExpanded(node) ? 'treeNode_cls' : 'none'">
+            <button mat-icon-button fxFlex="10" [attr.aria-label]="'toggle ' + node.filename">
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right'}}
+              </mat-icon>
+            </button>
+
+            <span fxFlex="80" (click)="logNode(node)" style="cursor: pointer;">{{node.item }}</span>
+            <button mat-icon-button fxFLex="15" (click)="addNewItem(node)" style=" justify-content: flex-end;">
+              <mat-icon style="transform: scale(0.8);cursor: pointer;">add</mat-icon>
+            </button>
+          </mat-tree-node>
+
+          <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent">
+            <!-- <button mat-icon-button disabled></button> -->
+            <form class="example-form" fxFlex="65">
+              <mat-form-field appearance="outline" class="example-full-width" style="width: 100%;" >
+                <mat-label>Number</mat-label>
+                <!-- style="width: 100%;height: 30px; padding: 9px 0px 8px 28px;
+                       border-radius: 4px;
+                       border: solid 1px #ced7e3;
+                       background-color: #ffffff;" -->
+                       <input autocomplete="off"  type="text"
+                       placeholder="Pick one"
+                       aria-label="Number"
+                       matInput
+                       [formControl]="myControl"
+                       #itemValue
+                       [matAutocomplete]="auto" matInput placeholder="Enter Main Tag" >
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </form>
+            <!-- <input style="width: 100%;height: 30px; padding: 9px 0px 8px 28px;
+                                  border-radius: 4px;
+                                  border: solid 1px #ced7e3;
+                                  background-color: #ffffff;" matInput #itemValue placeholder="New item..."> -->
+
+            <button mat-button  fxFlex="20" style="flex: 1;display: flex; justify-content: flex-end;margin-top: -20px;"
+              (click)="saveNode(node, itemValue.value)">Save</button>
+          </mat-tree-node>
+
+          <mat-tree-node *matTreeNodeDef="let node; when: hasChild" style="margin-top: 10px;">
+            <button mat-icon-button matTreeNodeToggle fxFlex="10" [attr.aria-label]="'toggle ' + node.filename">
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'arrow_drop_down' : 'arrow_right'}}
+              </mat-icon>
+            </button>
+
+            <span fxFlex="100" (click)="logNode(node)" style="cursor: pointer;">
+              <!-- <editable type="input"> -->
+              {{node.item }}</span>
+
+            <button mat-icon-button fxFlex="10" (click)="addNewItem(node)">
+              <mat-icon style="transform: scale(0.8);cursor: pointer;">add</mat-icon>
+            </button>
+          </mat-tree-node>
+        </mat-tree>
+      </mat-card>
+    </div>
+    <div fxFlex="2"> </div>
+    <div fxFlex="100" fxLayout="column" style="max-height: 20% !important;">
+      <div  fxLayout="row" style="max-height: 20% !important;">
+
+
+        <div fxFlex="80" fxLayout="column" style="padding-right:20px;">
+
+
+          <div fxLayout="row" class="div_box">
+            <div fxFlex="33">
+
+              <img fxFlex="15" class="Img_group" src="assets/images/Group3.svg">
+              <p fxFlex="60" class="Main_cls">Entry Nodes</p>
+              <div fxFlex="30" fxLayoutAlign="center center" class="Number_cls">
+                <span>{{length}}</span>
+              </div>
+            </div>
+            <div fxFlex="33">
+
+              <img fxFlex="15" class="Img_group" src="assets/images/Group2.svg">
+              <p fxFlex="70" class="Main_cls">Sub Nodes</p>
+              <div fxFlex="20" fxLayoutAlign="center center" class="Number_cls">
+                <span>{{childrenlength}}</span>
+              </div>
+            </div>
+            <div fxFlex="33">
+
+              <img fxFlex="15" class="Img_group" src="assets/images/Group3.svg">
+              <p fxFlex="50" class="Main_cls">Last Selected</p>
+              <div fxFlex="20" fxLayoutAlign="start center" class="Number_cls">
+                <span>{{node}}</span>
+              </div>
+            </div>
+
+            <img class="blueflow" fxLayoutAlign="end center" src="../../assets/images/Group1.svg">
+          </div>
+          <div style="padding-top: 17px;">
+            {{node}}
+          </div>
+
+
+        </div>
+        <div fxLayoutAlign="center center">
+          <img style="margin-top:-50px;width: 80%;" src="assets/images/Image 61.png">
+        </div>
+
+      </div>
+      <div class="tablescroll" >
+
+                <table mat-table [dataSource]="employeesDataSource">
+
+                    <ng-container matColumnDef="title">
+                        <th mat-header-cell *matHeaderCellDef><span class="thtitle"> Title </span></th>
+                        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="author">
+                        <th mat-header-cell *matHeaderCellDef> <span class="thauthor"> Author </span></th>
+                        <td mat-cell *matCellDef="let element"> {{element.author}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="date">
+                        <th mat-header-cell *matHeaderCellDef><span class="thdate">Date</span> </th>
+                        <td mat-cell *matCellDef="let element"> {{element.createdOn | date}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fulfilment">
+                        <th mat-header-cell *matHeaderCellDef> <span class="thful">Fulfilment</span> </th>
+                        <td mat-cell *matCellDef="let element">
+                            <ng-container *ngIf="(element.fulfilment == 'Created')||(element.fulfilment == 'Draft')">
+
+                                <mat-progress-bar class="progressone" mode="determinate" value="25">
+                                </mat-progress-bar>
+                                <span class="hider">
+                                    <span class="span1">gananathanks</span>
+                                    &nbsp;&nbsp;
+                                    {{element.fulfilment?'Created':'Draft'}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="element.fulfilment == 'Released'">
+                                <mat-progress-bar class="progresstwo" mode="determinate" value="50">
+                                </mat-progress-bar>
+                                <span class="hider">
+                                    <span class="span2">gananathanks</span>
+                                    &nbsp;&nbsp;
+                                    {{element.fulfilment}}</span>
+                            </ng-container>
+                            <ng-container *ngIf="element.fulfilment == 'In Signing'">
+                                <mat-progress-bar class="progressthree" mode="determinate" value="75">
+                                </mat-progress-bar>
+                                <span class="hider">
+                                    <span class="span3">gananathanks</span>
+                                    &nbsp;&nbsp;
+                                    {{element.fulfilment}}</span>
+                            </ng-container>
+                            <!-- <ng-container *ngIf="element.fulfilment == 'Draft'">
+                            <mat-progress-bar class="progressthree1" style="background-color:#ffffff !important;" mode="determinate" value="1">
+                            </mat-progress-bar>
+                            <span class="hider">
+                                <span class="span3">gananathanks</span>
+                                &nbsp;&nbsp;
+                                {{element.fulfilment}}</span>
+                        </ng-container> -->
+                            <ng-container *ngIf="element.fulfilment == 'Completed'">
+                                <mat-progress-bar class="progressfour" mode="determinate" value="100">
+                                </mat-progress-bar>
+                                <span class="hider">
+                                    <span class="span4">gananathanks</span>
+                                    &nbsp;&nbsp;
+                                    {{element.fulfilment}}</span>
+                            </ng-container>
+
+
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="signed">
+                        <th mat-header-cell *matHeaderCellDef> <span class="thsign"> Signed </span></th>
+                        <td mat-cell *matCellDef="let element">{{element.scount}} / {{element.tscount}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="completeby">
+                        <th mat-header-cell *matHeaderCellDef style="padding-left: 10px;"><span
+                                class="thcomplete">Completed By</span> </th>
+                        <td mat-cell *matCellDef="let element">{{element.completeby | date}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef><span class="thaction">Action</span> </th>
+                        <td mat-cell *matCellDef="let element" style="padding-left: 20px;">
+                            <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                                <div fxLayout="row" fxFlex="90" fxLayoutAlign="center" fxLayoutGap="10px">
+                                  <div *ngIf="element.docId===selecteddocId?hidespin1:none "
+                                  style="margin-top:-15% !important;" fxLayoutAlign="center center">
+                                  <mat-spinner diameter="20"></mat-spinner>
+                              </div>
+                              <mat-icon style="cursor: pointer;color: #057dfb;
+                              font-size: 20px;" matTooltip="Send Remainder"
+                                  *ngIf="element.fulfilment=='Released'?true:element.fulfilment=='In Signing'?true:false"
+                                  matTooltipPosition='above' class="notify"
+                                  (click)="sendRemainder(element.client,element.company,element.docId,element.fulfilment,element.author,element.createdOn,element.completeby)">
+                                  notifications</mat-icon>
+                              <!-- <img style="cursor: pointer;" matTooltip="Send Remainder" *ngIf="element.fulfilment=='Released'?true:element.fulfilment=='In Signing'?true:false" matTooltipPosition='above' class="notify"
+                                  (click)="sendRemainder(element.client,element.company,element.docId,element.fulfilment,element.author,element.createdOn,element.completeby)" src="assets/images/Notify.svg"> -->
+                              <!-- <img style="cursor: pointer;" matTooltip="Foreclose"  (click)="onSelect(element)" matTooltipPosition='above' class="close"
+                                  src="assets/images/close.svg"> -->
+                              <mat-icon style="cursor: pointer;color:  #ff4560;;
+                                  font-size: 20px;" matTooltip="Foreclose" (click)="onSelect(element)"
+                                  matTooltipPosition='above' class="close">delete</mat-icon>
+                                </div>
+                                <div fxFlex="10">
+                                    <mat-icon class="more" [matMenuTriggerFor]="moremenu1">more_vert</mat-icon>
+                                    <mat-menu #moremenu1="matMenu" xPosition="before">
+                                        <button mat-menu-item
+                                            (click)="sign(element.client,element.company,element.docId,element.fulfilment,element.author,element.createdOn,element.completeby)"
+                                            *ngIf="boolNxtsign(element)">
+                                            Sign Doc.
+                                        </button>
+                                        <button mat-menu-item
+                                            (click)="sign(element.client,element.company,element.docId,element.fulfilment,element.author,element.createdOn,element.completeby)"
+                                            *ngIf="((element.signStatus=='nxtsign')&&element.fulfilment!='Completed')?true:false">
+                                            Sign Doc.
+                                        </button>
+                                        <button mat-menu-item
+                                            (click)="view(element.client,element.company,element.docId,element.fulfilment)"
+                                            *ngIf="(element.client==curruser.ClientID)&&(element.fulfilment=='Draft'||element.fulfilment=='Released')?true:false">
+                                            View Doc.
+                                        </button>
+                                        <button mat-menu-item
+                                            (click)="viewDoc(element.client,element.company,element.docId,element.fulfilment,element.author,element.createdOn,element.completeby)"
+                                            *ngIf="(element.signStatus=='signed' || (element.client==curruser.ClientID))&&(element.fulfilment=='In Signing' || element.fulfilment=='Completed')?true:false">
+                                            View Doc.
+                                        </button>
+                                    </mat-menu>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="employeesDisplayColumns; sticky: true"
+                        style="background-color: #f7f9fd;"></tr>
+                    <tr mat-row *matRowDef="let row; columns: employeesDisplayColumns;"></tr>
+                </table>
+
+            </div>
+
+        
+
+    </div>
+    <!-- <div>
+    as
+  </div> -->
+    <!-- <div fxFlex="2" fxLayoutAlign="center center" class="vl"> </div>
+    <div fxFlex="20" fxLayout="column">
+      <div fxLayoutAlign="center center" class="bg_cls2">
+        <p style="margin-top: 12px;font-size: 14px;">Organizational Chart View</p>
+        <mat-icon style="cursor: pointer;">keyboard_arrow_down</mat-icon>
+      </div>
+      <br>
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <label style="font-size: 12px;font-weight: 600;">Selected Branch Flow</label>
+        <br>
+      </div>
+    </div> -->
+    <div fxFlex="2"> </div>
+  </div>
+</div>

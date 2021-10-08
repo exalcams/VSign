@@ -1,0 +1,41 @@
+<div fxLayout="column" style="padding: 20px;">
+  <div fxLayout="row" fxLayoutAlign="end start">
+      <img  (click)="dialogRef.close()" style="cursor: pointer;" src="assets/images/Group 7779.svg">
+  </div>
+  <!-- <div> -->
+      <label>Create Main Tag</label>
+  <!-- </div> -->
+  <div fxLayout="row" >
+      <img src="assets/images/img.svg">
+      <div fxLayout="column" fxLayoutAlign="space-between center" style="padding: 25px;width: 65%;
+      margin-left: 65px;">
+      <form class="example-form">
+        <mat-form-field appearance="outline" class="example-full-width" >
+          <mat-label>Tag</mat-label>
+          <!-- style="width: 100%;height: 30px; padding: 9px 0px 8px 28px;
+                 border-radius: 4px;
+                 border: solid 1px #ced7e3;
+                 background-color: #ffffff;" -->
+                 <input autocomplete="off"  type="text"
+                 placeholder="Pick one"
+                 aria-label="Tag"
+                 matInput
+                 [formControl]="myControl"
+                 [matAutocomplete]="auto" matInput placeholder="Enter Main Tag" [(ngModel)]="InputMain">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+          <!-- <input autocomplete="off" style="width: 100%;height: 30px; padding: 9px 0px 8px 28px;
+          border-radius: 4px;
+          border: solid 1px #ced7e3;
+          background-color: #ffffff;" matInput placeholder="Enter Main Tag" [(ngModel)]="InputMain"> -->
+          <div fxLayoutAlign="center center" style="padding-left: 56px;cursor: pointer;" class="Create_cls" (click)="Create()">Create
+              <span style="    margin-left: 40px;"><img width="25px" style="float: right;margin-top: -6px;" src="assets/images/flowerblue.svg"></span>
+          </div>
+      </div>
+  </div>
+</div>
